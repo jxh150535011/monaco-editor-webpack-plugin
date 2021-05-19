@@ -18,6 +18,8 @@ const EDITOR_MODULE: IFeatureDefinition = {
   },
 };
 
+const MONACO_EDITOR_PREFIX = '@xhjin/monaco-editor';
+
 const languagesById: { [language: string]: IFeatureDefinition; } = {};
 languagesArr.forEach(language => languagesById[language.label] = language);
 
@@ -29,10 +31,10 @@ featuresArr.forEach(feature => featuresById[feature.label] = feature);
  */
 function resolveMonacoPath(filePath: string): string {
   try {
-    return require.resolve(path.join('monaco-editor/esm', filePath));
+    return require.resolve(path.join(`${MONACO_EDITOR_PREFIX}/esm`, filePath));
   } catch(err) {
     try {
-      return require.resolve(path.join(process.cwd(), 'node_modules/monaco-editor/esm', filePath));
+      return require.resolve(path.join(process.cwd(), `node_modules/${MONACO_EDITOR_PREFIX}/esm`, filePath));
     } catch(err){
       return require.resolve(filePath);
     }
